@@ -52,7 +52,7 @@
  \end{figure}
 
 \pagenumbering{gobble}
-\clearpage 
+\pagebreak 
 
 \pagenumbering{arabic}
 \section{Abstract}
@@ -76,6 +76,28 @@ facilidad que brinda el sistema para \emph{armar} la boleta.
 
 
 \section{Medición del corte de boleta utilizando la desviación estándar}
+Definimos el corte de boleta como el comportamiento electoral en el cual el
+elector elige de manera válida más de una opción partidaria en categorías diferentes, en el mismo
+acto eleccionario.
+
+De esta forma, el elector puede hacer clara su preferencia por un candidato
+particular para un cargo determinado, aunque elija otro partido en otra
+categoría.
+
+Sin embargo, está claro que esta conducta puede ser influida por el diseño del
+instrumento de sufragio: el sistema de boletas por partidos utilizado en la
+mayoría de los distritos de Argentina hace que el corte de boleta sea muy
+engorroso, más si es una elección con muchas categorías. En cambio, la boleta
+única de papel o la electrónica, deberían reducir esa fricción práctica y
+facilitar la tarea al elector que quiera cortar boleta.
+
+Más allá de que el concepto del corte de boleta es muy sencillo, a la hora de
+trabajar con los datos disponibles (resultados electorales) puede resultar
+desafiante la tarea de medir de manera precisa esta conducta. La mayor parte de
+los análisis que hemos visto sobre el corte de boleta (mayormente notas
+periodísticas) se concentran en determinados resultados visibles y notorios,
+pero no hemos encontrado un procedimiento metódico para su análisis cuantitativo.
+
 La metodología que proponemos para la medición sistemática y comparable es la
 siguiente:
 
@@ -250,7 +272,7 @@ De esta tabla\footnote{La última columna del cuadro 5 muestra la desviación
   una \emph{sparkline}, y permite ver cómo se deslizó el corte de boleta en cada
 partido. Sobre \emph{sparklines}, ver
 \url{https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR}}
-podemos desprender ya algunos elementos de análisis, sobre todo si
+podemos desprender rápidamente ya algunos elementos de análisis, sobre todo si
 expresamos la desviación estándar en términos porcentuales sobre el total de
 votos obtenido por cada partido.
 \begin{enumerate}
@@ -277,6 +299,16 @@ metodología:
     primer nivel significativo.
 \end{itemize}
 
+Sin lugar a dudas, el aspecto más complejo del procedimiento es el de darle a
+los datos (suponiendo que pudimos obtenerlos en una forma medianamente adecuada
+para su transformación cuantitativa) la forma requerida para aplicar la
+desviación estándar.
+
+Finalmente, y retomando la definición \emph{procedimental} del corte de boleta
+que esbozamos al comienzo de esta sección, podemos definir ahora que existe
+corte de boleta en un conjunto de votos de un partido dividido por categorías,
+si la desviación estándar $\sigma$ de ese conjunto es mayor a 0.
+
 \pagebreak
 
 \section{Estudio de caso: las elecciones chaqueñas de 2015}
@@ -288,6 +320,9 @@ elecciones convivieron dos instrumentos de sufragio: el sistema tradicional de
 boletas de papel y el sistema de Boleta Única Electrónica. Éste último se aplicó
 en el 100\% de las mesas de la localidad de Resistencia, y en algunas mesas del
 interior de la provincia.
+
+En estas elecciones se eligieron los cargos de Gobernador, Diputados, Intendente
+y Concejales, y se llevaron a cabo con total normalidad.
 
 Nos interesa verificar si existieron diferencias en el corte de boleta entre
 ambos sistemas, dado que se supone que la BUE facilita esta tarea al elector, al
@@ -399,8 +434,14 @@ Máximo & 11.820 & 58.270 \\
 Llama la atención el valor máximo de la desviación estándar de las mesas
 tradicionales, lo que parece indicar que existen valores muy elevados en el 3er
 cuartil. Eso explica por qué el promedio de corte de boleta es más alto en el
-conjunto tradicional que en el electrónico, aunque la mediana sea más alta en
-éste último.
+conjunto tradicional que en el electrónico.
+
+Pero, aún teniendo en cuenta este hecho, ya vemos que la mediana\footnote{La
+  mediana es el valor que ocupa el lugar central de todo el conjunto de datos,
+  dividiendo la mitad inferior de la superior. A diferencia del promedio, que se
+ve afectado por los valores extremos, la mediana es resistente a esas anomalías
+y por ende puede ser una mejor medida de tendencia central} es mucho más baja
+en las mesas tradicionales, indicando que el corte de boleta es inferior en esos casos.
 
 Veamos la dispersión de valores del sistema tradicional en un histograma:
 
@@ -422,12 +463,59 @@ Veamos la dispersión en los valores del sistema BUE:
 \caption{Histograma de cortes de boleta, sistema electrónico}
 \end{figure}
 
-Aquí vemos una distribución de valores mucho más normal. Si nos enfocamos
-puntualmente en los valores altos, detectamos que se concentran mayormente en
+Aquí vemos una distribución de valores mucho más normal, comparada con la
+distribución de valores en las mesas tradicionales.
+Si nos enfocamos puntualmente en los valores altos, detectamos que se concentran mayormente en
 algunas localidades donde los votos del Frente Chaco Merece Más para intendente
 fueron a favorecer al candidato de un partido local sin candidatos a Gobernador.
 Vemos entonces que la aplicación de esta metodología se aplica también a la
 detección de este tipo de casos que pueden constituir una anomalía.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllllllll}
+nombre\_depto  & nro\_mesa & nro\_partido & gob & dip & int & cnj & electores & sigma         \\
+\hline
+CHACABUCO      & 1025      & 653          & 114 & 116 & 125 & 0   & 300       & 51.4070763611 \\
+12 DE OCTUBRE  & 29        & 652          & 173 & 171 & 87  & 84  & 300       & 43.268782049  \\
+12 DE OCTUBRE  & 30        & 652          & 164 & 164 & 66  & 64  & 300       & 49.5050502474 \\
+12 DE OCTUBRE  & 32        & 652          & 172 & 173 & 87  & 84  & 300       & 43.5143654441 \\
+12 DE OCTUBRE  & 1025      & 652          & 199 & 196 & 115 & 109 & 300       & 42.8157389286 \\
+12 DE OCTUBRE  & 1026      & 652          & 190 & 190 & 104 & 102 & 300       & 43.5057467468 \\
+12 DE OCTUBRE  & 1027      & 652          & 196 & 192 & 106 & 101 & 300       & 45.3065944428 \\
+GENERAL GUEMES & 87        & 652          & 200 & 198 & 101 & 100 & 300       & 49.256344769  \\
+GENERAL GUEMES & 88        & 652          & 183 & 183 & 93  & 89  & 300       & 46.021733996  \\
+GENERAL GUEMES & 89        & 652          & 215 & 213 & 111 & 111 & 300       & 51.5048541402 \\
+GENERAL GUEMES & 90        & 652          & 197 & 197 & 93  & 94  & 300       & 51.7512077154 \\
+GENERAL GUEMES & 91        & 652          & 202 & 200 & 97  & 96  & 301       & 52.255980519  \\
+GENERAL GUEMES & 92        & 652          & 203 & 201 & 102 & 103 & 301       & 49.7562810105 \\
+GENERAL GUEMES & 93        & 652          & 196 & 192 & 88  & 87  & 300       & 53.2699493148 \\
+GENERAL GUEMES & 94        & 652          & 203 & 201 & 103 & 103 & 300       & 49.5050502474 \\
+GENERAL GUEMES & 95        & 652          & 209 & 207 & 104 & 103 & 300       & 52.255980519  \\
+GENERAL GUEMES & 96        & 652          & 204 & 204 & 101 & 102 & 300       & 51.2512194977 \\
+GENERAL GUEMES & 98        & 652          & 211 & 208 & 109 & 109 & 300       & 50.2611927833 \\
+GENERAL GUEMES & 99        & 652          & 215 & 214 & 108 & 107 & 300       & 53.5023363976 \\
+GENERAL GUEMES & 100       & 652          & 217 & 217 & 118 & 118 & 300       & 49.5          \\
+GENERAL GUEMES & 101       & 652          & 209 & 209 & 116 & 116 & 300       & 46.5          \\
+GENERAL GUEMES & 102       & 652          & 216 & 216 & 137 & 135 & 300       & 40.0062495118 \\
+GENERAL GUEMES & 1009      & 652          & 186 & 185 & 102 & 102 & 300       & 41.7514969792 \\
+GENERAL GUEMES & 1009      & 653          & 68  & 68  & 152 & 152 & 300       & 42            \\
+GENERAL GUEMES & 1082      & 652          & 214 & 108 & 110 & 109 & 302       & 45.4718319402 \\
+GENERAL GUEMES & 1083      & 652          & 199 & 194 & 97  & 96  & 300       & 50.0324894444 \\
+GENERAL GUEMES & 1084      & 652          & 197 & 189 & 97  & 95  & 301       & 48.5875498456 \\
+GENERAL GUEMES & 1085      & 652          & 203 & 202 & 113 & 112 & 302       & 45.002777692  \\
+GENERAL GUEMES & 1087      & 652          & 197 & 193 & 78  & 79  & 300       & 58.2682374884 \\
+GENERAL GUEMES & 1088      & 652          & 209 & 208 & 109 & 108 & 300       & 50.0024999375 \\
+GENERAL GUEMES & 1089      & 652          & 218 & 211 & 122 & 121 & 330       & 46.5671558075 \\
+GENERAL GUEMES & 1090      & 652          & 217 & 216 & 111 & 112 & 330       & 52.5023808984 \\
+GENERAL GUEMES & 1091      & 652          & 218 & 218 & 131 & 129 & 300       & 44.0056814514 \\
+GENERAL GUEMES & 1092      & 652          & 212 & 212 & 96  & 96  & 300       & 58            \\
+GENERAL GUEMES & 1093      & 652          & 218 & 217 & 113 & 110 & 300       & 53.0117911412\\
+\hline
+\end{tabular}
+\caption{Mesas tradicional con sigma muy alto}
+\label{table:1}
+\end{table}
 
 Volviendo al conjunto de datos tradicional, las mesas que cuentan con
 un sigma mayor a 20 en toda la provincia son 221 (7.28\% del total), de las
@@ -471,6 +559,8 @@ Vemos aquí con claridad, tanto en el gráfico como en la estadística descripti
 que en las mesas electrónicas se da una mayor frecuencia de valores altos de
 cortes de boleta, lo que parece reforzar nuestra hipótesis inicial.
 
+\pagebreak
+
 \section{Conclusiones}
 En este trabajo intentamos describir una metodología para medir de manera
 sistemática el corte de boleta electoral, y permitir la realización de análisis
@@ -488,9 +578,12 @@ votantes según el instrumento de sufragio: vimos que, siendo en la misma
 elección, el corte de boleta es sensiblemente mayor en el caso de la Boleta
 Única Electrónica que en el sistema tradicional.
 
-Sería interesante en futuras investigaciones la exploración de otras hipótesis.
-
-\pagebreak
+Sería interesante en futuras investigaciones la exploración de otras hipótesis
+aplicando esta metodología. Por ejemplo, la búsqueda de patrones históricos,
+regionales o por partido, la relación entre el tipo de elección y el corte de
+boleta, etc. Si bien aquí comparamos el sistema tradicional con la boleta
+electrónica, se podría realizar un análisis similar pero contrastando con la
+boleta única de papel.
 
 \section{Bibliografía y Fuentes}
 
@@ -504,6 +597,8 @@ Sería interesante en futuras investigaciones la exploración de otras hipótesi
     gráficos fueron generados en R.
   \item Tablas utilizadas, datos base y código fuente del trabajo disponibles en \url{https://github.com/fmariluis/paper-cortedeboleta}
 \end{itemize}
+
+\pagebreak
 
 \tableofcontents
 \listoftables

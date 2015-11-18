@@ -25,13 +25,14 @@
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{xltxtra}
-\setmainfont{Adobe Garamond Pro}
+\setmainfont{Linux Libertine O}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{url}
 
 \pagestyle{myheadings}
 
-\usepackage{amsfonts}
-\usepackage{amssymb}
 \begin{document}
  \begin{figure}[h!]
    \centering
@@ -56,7 +57,8 @@
 \pagenumbering{arabic}
 \section{Abstract}
 Este trabajo pretende sugerir una metodología concreta para medir el corte de
-boleta, de tal forma de permitir un trabajo comparativo aún entre elecciones de
+boleta, que permita la realización de un trabajo comparativo de este
+comportamiento aún entre elecciones de
 diferentes formas.
 Una vez descrita la metodología, intentaremos aplicarla en el caso concreto de
 las elecciones provinciales de Chaco 2015, para mostrar si existió alguna
@@ -122,14 +124,16 @@ Total & 350 & 350 & 350 \\ [1ex]
 \label{table:1}
 \end{table}
 
-Si bien es fácilmente apreciable la magnitud del corte de boleta, otra cosa es
+Si bien es fácilmente apreciable \emph{a simple vista} la magnitud del corte de boleta, otra cosa es
 su medición sistemática. Lo que proponemos para ello es medir la
-\emph{desviación estándar} de los votos de cada partido, para tener una medida
+\emph{desviación estándar} del conjunto de los votos de cada partido, para tener una medida
 estandarizada del corte de boleta.
 
-La desviación estándar (también conocida como \(\sigma\)) es una medida de estadística descriptiva que permite cuantificar la dispersión en un grupo de valores. En términos sencillos, indica
+La desviación estándar (también conocida como \(\sigma\)) es una medida de
+estadística descriptiva que permite 
+cuantificar la dispersión en un grupo de valores. En términos sencillos, indica
 qué tanto varían los valores en relación alguna medida de tendencia central como
-la mediana.
+la media.
 
 Su definición formal es:
 
@@ -194,8 +198,10 @@ Total & 350 & 350 & 350 & 56.87 (promedio) \\ [1ex]
 \label{table:1}
 \end{table}
 
-Veamos ahora un ejemplo real, en un caso donde sabemos que se verificó
-ciertamente un alto grado de corte de boleta: el municipio de Lanús, en las elecciones generales 2015:
+Apliquemos esta metodología a un ejemplo real, en un caso donde sabemos que se verificó
+ciertamente un alto grado de corte de boleta: el municipio de Lanús, en las
+elecciones generales 2015. En este partido, ganó el Frente para la Victoria para
+la categoría de Presidente y Cambiemos para Gobernador e Intendente.
 
 \renewcommand{\arraystretch}{1.25}
 \begin{table}[h!]
@@ -203,31 +209,31 @@ ciertamente un alto grado de corte de boleta: el municipio de Lanús, en las ele
 \begin{tabular}{c c c c c c} 
  Partido & Presidente & Gobernador & Intendente & $\sigma$ & $\sigma$ como \% de votos \\ [0.5ex] 
  \toprule
-FPV & 107.297 & 95.815 & 99.430 & 4793.45 & 4.75\% \begin{sparkline}{10}
+FPV & 107297 & 95815 & 99430 & 4793.45 & 4.75\% \begin{sparkline}{10}
 \sparkdot 0.1 1 blue
 \sparkdot 0.5 0.3 red
 \spark 0.1 1  0.5 0.3  1 0.7 /
 \end{sparkline}
 \\
-Cambiemos & 96.588 & 113.067 & 103.362 & 6762.90 & 6.48\% \begin{sparkline}{10}
+Cambiemos & 96588 & 113067 & 103362 & 6762.90 & 6.48\% \begin{sparkline}{10}
 \sparkdot 0.5 1 blue
 \sparkdot 0.1 0.5 red
 \spark 0.1 0.5  0.5 1  1 0.8 /
 \end{sparkline}
 \\
-UNA & 61.727 & 51.614 & 54.669 & 4235.05 & 7.56\% \begin{sparkline}{10}
+UNA & 61727 & 51614 & 54669 & 4235.05 & 7.56\% \begin{sparkline}{10}
 \sparkdot 0.1 0.7 blue
 \sparkdot 0.5 0.25 red
 \spark 0.1 0.7  0.5 0.25  1 0.40 /
 \end{sparkline}
 \\
-FIT & 11.979 & 11.901 & 11.462 & 227.57 & 1.93\% \begin{sparkline}{10}
+FIT & 11979 & 11901 & 11462 & 227.57 & 1.93\% \begin{sparkline}{10}
 \sparkdot 0.1 0.55 blue
 \sparkdot 0.5 0.50 red
 \spark 0.1 0.55  0.5 0.50  1 0.40 /
 \end{sparkline}
 \\
-Progresistas & 8.634 & 6.653 & 6.568 & 954.52 & 13.10\% \begin{sparkline}{9}
+Progresistas & 8634 & 6653 & 6568 & 954.52 & 13.10\% \begin{sparkline}{9}
 \sparkdot 0.1 0.8 blue
 \sparkdot 1 0.20 red
 \spark 0.1 0.8  0.5 0.25  1 0.20 /
@@ -242,16 +248,17 @@ Progresistas & 8.634 & 6.653 & 6.568 & 954.52 & 13.10\% \begin{sparkline}{9}
 De esta tabla\footnote{La última columna del cuadro 5 muestra la desviación
   estándar como porcentaje del total de votos del partido. La visualización es
   una \emph{sparkline}, y permite ver cómo se deslizó el corte de boleta en cada
-partido. Sobre sparklines, ver
+partido. Sobre \emph{sparklines}, ver
 \url{https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR}}
 podemos desprender ya algunos elementos de análisis, sobre todo si
 expresamos la desviación estándar en términos porcentuales sobre el total de
 votos obtenido por cada partido.
 \begin{enumerate}
-  \item FIT tiene un corte de boleta bajísimo, señal de que sus votantes votan más al partido
+  \item FIT tiene un corte de boleta bajísimo, al parecer señal de que sus votantes votan más al partido
     que a las opciones particulares de cada categoría
   \item Progresistas tiene el corte de boleta más alto, sobre todo
-    en la categoría Presidente.
+    en la categoría Presidente. Probablemente porque su candidata a Presidente
+    es la figura más conocida el partido.
   \item El corte de boleta del FPV no es tan alto, pero combinado con el corte
     que registra Cambiemos y UNA, se explica el resultado disímil que obtuvo
     para Presidente y Gobernador.
@@ -288,7 +295,27 @@ permitirle construir su opción electoral en una pantalla y realizar los cambios
 necesarios antes de la impresión de la boleta.
 
 \subsection{La Boleta Única Electrónica}
-blah 
+La Boleta Única Electrónica es un sistema de sufragio que permite que elector
+realice la selección de sus candidatos en una pantalla táctil, para luego
+confirmar su elección e imprimir una boleta (la cual posee la información
+grabada en un chip). Ésta boleta se deposita en una urna tradicional y es
+recontada al cierre de mesas.
+
+En relación al aspecto que nos interesa analizar, la interfaz gráfica de la
+máquina de voto hace más sencillo al votante elegir a los candidatos para cada
+categoría (en comparación al sistema tradicional, que implica cortar físicamente
+varias boletas de papel).
+
+Si bien permite también la seleccion \emph{por lista completa}, la interfaz
+elimina la fricción inherente al acto de elegir distintos partidos para cada
+categoría, y por ende debería reflejarse en un mayor corte de boleta medido con
+los resultados.
+
+\begin{figure}[h]
+\centering
+    \includegraphics[width=\textwidth]{interfaz_bue}
+\caption{Interfaz del sistema BUE}
+\end{figure}
 
 \subsection{Análisis de las elecciones 2015}
 
@@ -327,7 +354,7 @@ GENERAL GUEMES & 57857 & 201 & 0 \\
 Total & 859161 & 2159 & 874 \\ [1ex]
  \hline
 \end{tabular}
-\caption{Electores y mesas - Chaco 2015}
+\caption{Electores y tipos de mesas - Chaco 2015}
 \label{table:1}
 \end{table}
 
@@ -377,7 +404,11 @@ conjunto tradicional que en el electrónico, aunque la mediana sea más alta en
 
 Veamos la dispersión de valores del sistema tradicional en un histograma:
 
-\includegraphics[width=\textwidth]{sigmas_tradicional}
+\begin{figure}[h]
+\centering
+    \includegraphics[width=\textwidth]{sigmas_tradicional}
+\caption{Histograma de cortes de boleta, sistema tradicional}
+\end{figure}
 
 Es evidente que existen anomalías en el conjunto de datos: podemos como existen
 valores muy altos (desviación estándar de más de 17 votos) pero de poca
@@ -385,7 +416,11 @@ ocurrencia. Estadísticamente, estamos muy lejos de una distribución normal.
 
 Veamos la dispersión en los valores del sistema BUE:
 
-\includegraphics[width=\textwidth]{sigmas_electronico}
+\begin{figure}[h]
+\centering
+    \includegraphics[width=\textwidth]{sigmas_electronico}
+\caption{Histograma de cortes de boleta, sistema electrónico}
+\end{figure}
 
 Aquí vemos una distribución de valores mucho más normal. Si nos enfocamos
 puntualmente en los valores altos, detectamos que se concentran mayormente en
@@ -425,10 +460,16 @@ Máximo & 11.820 & 11.950 \\
 
 Y si graficamos nuevamente la distribución:
 
-\includegraphics[width=\textwidth]{sigmas_tradicional_menor_a_12}
+\begin{figure}[h]
+\centering
+    \includegraphics[width=\textwidth]{sigmas_tradicional_menor_a_12}
+\caption{Histograma de cortes de boleta, sistema tradicional con sigmas menores
+  a 12}
+\end{figure}
 
 Vemos aquí con claridad, tanto en el gráfico como en la estadística descriptiva,
-que en las mesas electrónicas se 
+que en las mesas electrónicas se da una mayor frecuencia de valores altos de
+cortes de boleta, lo que parece reforzar nuestra hipótesis inicial.
 
 \section{Conclusiones}
 En este trabajo intentamos describir una metodología para medir de manera
@@ -459,14 +500,13 @@ Sería interesante en futuras investigaciones la exploración de otras hipótesi
   \item Datos de elecciones en el partido de Lanús tomadas de
     \url{http://www.elecciones.gov.ar/articulo_sub_sub.php?secc=2&sub_secc=55&sub_sub_secc=64}
     y \url{http://www.resultadosba.gob.ar/resultados/dat02/DCO02062M.htm?d=1543}
-  \item Este trabajo fue escrito utilizando Latex. Los cálculos estadísticos y
-    gráficos generados 
+  \item Este trabajo fue escrito utilizando \LaTeX. Los cálculos estadísticos y
+    gráficos fueron generados en R.
   \item Tablas utilizadas, datos base y código fuente del trabajo disponibles en \url{https://github.com/fmariluis/paper-cortedeboleta}
 \end{itemize}
 
-
 \tableofcontents
-
 \listoftables
+\listoffigures
 
 \end{document}

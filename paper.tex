@@ -84,7 +84,7 @@ De esta forma, el elector puede hacer clara su preferencia por un candidato
 particular para un cargo determinado, aunque elija otro partido en otra
 categoría.
 
-Sin embargo, está claro que esta conducta puede ser influida por el diseño del
+Está claro que esta conducta puede ser influida por el diseño del
 instrumento de sufragio: el sistema de boletas por partidos utilizado en la
 mayoría de los distritos de Argentina hace que el corte de boleta sea muy
 engorroso, más si es una elección con muchas categorías. En cambio, la boleta
@@ -148,8 +148,8 @@ Total & 350 & 350 & 350 \\ [1ex]
 
 Si bien es fácilmente apreciable \emph{a simple vista} la magnitud del corte de boleta, otra cosa es
 su medición sistemática. Lo que proponemos para ello es medir la
-\emph{desviación estándar} del conjunto de los votos de cada partido, para tener una medida
-estandarizada del corte de boleta.
+\emph{desviación estándar} del conjunto de los votos de cada partido (en sentido
+\emph{horizontal}), para tener una medida estandarizada del corte de boleta.
 
 La desviación estándar (también conocida como \(\sigma\)) es una medida de
 estadística descriptiva que permite 
@@ -157,7 +157,12 @@ cuantificar la dispersión en un grupo de valores. En términos sencillos, indic
 qué tanto varían los valores en relación alguna medida de tendencia central como
 la media.
 
-Su definición formal es:
+Su definición formal\footnote{Cabe aclarar que tanto la varianza como la
+  desviación estándar tienen dos versiones, dependiendo si trabajamos con una
+  muestra o con una población completa. En caso de trabajar con una muestra es
+  necesario aplicar una corrección para tener en cuenta los valores faltantes.
+  En el caso de nuestro estudio, en todos los casos trabajamos siempre con una
+  población y no con una muestra, por ende la fórmula indicada es aplicable.} es:
 
 \[ \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \overline{x})^2} \]
 
@@ -292,7 +297,7 @@ metodología:
 \begin{itemize}
   \item Debemos contar solamente los partidos que presenten candidatos a todas
     las categorías, de otro modo se produciría una distorsión en la medida.
-  \item La desviación estándar se cuenta de modo horizontal, en una matriz donde
+  \item La desviación estándar se calcula de modo horizontal, en una matriz donde
     las columnas son cargos y las filas son partidos.
   \item Es necesario contar empezando desde el nivel más bajo posible,
     idealmente mesa, a fin de tener todas las categorías contempladas desde su
@@ -313,7 +318,7 @@ si la desviación estándar $\sigma$ de ese conjunto es mayor a 0.
 
 \section{Estudio de caso: las elecciones chaqueñas de 2015}
 
-En esta parte haremos una aplicación práctica de esta metodología para comparar
+En esta sección haremos una aplicación práctica de esta metodología para comparar
 el comportamiento electoral de los votantes chaqueños durante las elecciones
 provinciales del 20 de septiembre de 2015, teniendo en cuenta que en dichas
 elecciones convivieron dos instrumentos de sufragio: el sistema tradicional de
@@ -322,7 +327,7 @@ en el 100\% de las mesas de la localidad de Resistencia, y en algunas mesas del
 interior de la provincia.
 
 En estas elecciones se eligieron los cargos de Gobernador, Diputados, Intendente
-y Concejales, y se llevaron a cabo con total normalidad.
+y Concejales, y se llevaron a cabo con total normalidad en toda la provincia.
 
 Nos interesa verificar si existieron diferencias en el corte de boleta entre
 ambos sistemas, dado que se supone que la BUE facilita esta tarea al elector, al
@@ -333,8 +338,9 @@ necesarios antes de la impresión de la boleta.
 La Boleta Única Electrónica es un sistema de sufragio que permite que elector
 realice la selección de sus candidatos en una pantalla táctil, para luego
 confirmar su elección e imprimir una boleta (la cual posee la información
-grabada en un chip). Ésta boleta se deposita en una urna tradicional y es
-recontada al cierre de mesas.
+grabada en un chip). Esta boleta se deposita en una urna tradicional y es
+recontada al cierre de mesas, utilizando la máquina de voto en un modo especial
+de recuento que permite contar rápidamente leyendo el chip RFID que poseen las boletas.
 
 En relación al aspecto que nos interesa analizar, la interfaz gráfica de la
 máquina de voto hace más sencillo al votante elegir a los candidatos para cada
@@ -411,7 +417,10 @@ Además, y para trabajar con un conjunto de datos más homogéneo, vamos a elimi
 las mesas que poseen menos de 100 electores habilitados (87 mesas).
 
 Veamos una primera aproximación al cálculo de la desviación estándar por partido
-de este conjunto de datos, dividido según mesas electrónicas y tradicionales:
+de este conjunto de datos, dividido según mesas electrónicas y tradicionales.
+Este cuadro muestra la estadística descriptiva del conjunto de desviaciones
+estándar de los votos de los partidos que consideramos, dividido entre mesas
+electrónicas y tradicionales.
 
 \begin{table}[h!]
 \centering
@@ -446,11 +455,12 @@ en las mesas tradicionales, indicando que el corte de boleta es inferior en esos
 Veamos la dispersión de valores del sistema tradicional en un histograma:
 
 \begin{figure}[h]
+\caption{Histograma de cortes de boleta, sistema tradicional}
 \centering
     \includegraphics[width=\textwidth]{sigmas_tradicional}
-\caption{Histograma de cortes de boleta, sistema tradicional}
 \end{figure}
 
+\pagebreak
 Es evidente que existen anomalías en el conjunto de datos: podemos como existen
 valores muy altos (desviación estándar de más de 17 votos) pero de poca
 ocurrencia. Estadísticamente, estamos muy lejos de una distribución normal.
@@ -458,9 +468,9 @@ ocurrencia. Estadísticamente, estamos muy lejos de una distribución normal.
 Veamos la dispersión en los valores del sistema BUE:
 
 \begin{figure}[h]
+\caption{Histograma de cortes de boleta, sistema tradicional}
 \centering
     \includegraphics[width=\textwidth]{sigmas_electronico}
-\caption{Histograma de cortes de boleta, sistema electrónico}
 \end{figure}
 
 Aquí vemos una distribución de valores mucho más normal, comparada con la
@@ -469,65 +479,20 @@ Si nos enfocamos puntualmente en los valores altos, detectamos que se concentran
 algunas localidades donde los votos del Frente Chaco Merece Más para intendente
 fueron a favorecer al candidato de un partido local sin candidatos a Gobernador.
 Vemos entonces que la aplicación de esta metodología se aplica también a la
-detección de este tipo de casos que pueden constituir una anomalía.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{lllllllll}
-nombre\_depto  & nro\_mesa & nro\_partido & gob & dip & int & cnj & electores & sigma         \\
-\hline
-CHACABUCO      & 1025      & 653          & 114 & 116 & 125 & 0   & 300       & 51.4070763611 \\
-12 DE OCTUBRE  & 29        & 652          & 173 & 171 & 87  & 84  & 300       & 43.268782049  \\
-12 DE OCTUBRE  & 30        & 652          & 164 & 164 & 66  & 64  & 300       & 49.5050502474 \\
-12 DE OCTUBRE  & 32        & 652          & 172 & 173 & 87  & 84  & 300       & 43.5143654441 \\
-12 DE OCTUBRE  & 1025      & 652          & 199 & 196 & 115 & 109 & 300       & 42.8157389286 \\
-12 DE OCTUBRE  & 1026      & 652          & 190 & 190 & 104 & 102 & 300       & 43.5057467468 \\
-12 DE OCTUBRE  & 1027      & 652          & 196 & 192 & 106 & 101 & 300       & 45.3065944428 \\
-GENERAL GUEMES & 87        & 652          & 200 & 198 & 101 & 100 & 300       & 49.256344769  \\
-GENERAL GUEMES & 88        & 652          & 183 & 183 & 93  & 89  & 300       & 46.021733996  \\
-GENERAL GUEMES & 89        & 652          & 215 & 213 & 111 & 111 & 300       & 51.5048541402 \\
-GENERAL GUEMES & 90        & 652          & 197 & 197 & 93  & 94  & 300       & 51.7512077154 \\
-GENERAL GUEMES & 91        & 652          & 202 & 200 & 97  & 96  & 301       & 52.255980519  \\
-GENERAL GUEMES & 92        & 652          & 203 & 201 & 102 & 103 & 301       & 49.7562810105 \\
-GENERAL GUEMES & 93        & 652          & 196 & 192 & 88  & 87  & 300       & 53.2699493148 \\
-GENERAL GUEMES & 94        & 652          & 203 & 201 & 103 & 103 & 300       & 49.5050502474 \\
-GENERAL GUEMES & 95        & 652          & 209 & 207 & 104 & 103 & 300       & 52.255980519  \\
-GENERAL GUEMES & 96        & 652          & 204 & 204 & 101 & 102 & 300       & 51.2512194977 \\
-GENERAL GUEMES & 98        & 652          & 211 & 208 & 109 & 109 & 300       & 50.2611927833 \\
-GENERAL GUEMES & 99        & 652          & 215 & 214 & 108 & 107 & 300       & 53.5023363976 \\
-GENERAL GUEMES & 100       & 652          & 217 & 217 & 118 & 118 & 300       & 49.5          \\
-GENERAL GUEMES & 101       & 652          & 209 & 209 & 116 & 116 & 300       & 46.5          \\
-GENERAL GUEMES & 102       & 652          & 216 & 216 & 137 & 135 & 300       & 40.0062495118 \\
-GENERAL GUEMES & 1009      & 652          & 186 & 185 & 102 & 102 & 300       & 41.7514969792 \\
-GENERAL GUEMES & 1009      & 653          & 68  & 68  & 152 & 152 & 300       & 42            \\
-GENERAL GUEMES & 1082      & 652          & 214 & 108 & 110 & 109 & 302       & 45.4718319402 \\
-GENERAL GUEMES & 1083      & 652          & 199 & 194 & 97  & 96  & 300       & 50.0324894444 \\
-GENERAL GUEMES & 1084      & 652          & 197 & 189 & 97  & 95  & 301       & 48.5875498456 \\
-GENERAL GUEMES & 1085      & 652          & 203 & 202 & 113 & 112 & 302       & 45.002777692  \\
-GENERAL GUEMES & 1087      & 652          & 197 & 193 & 78  & 79  & 300       & 58.2682374884 \\
-GENERAL GUEMES & 1088      & 652          & 209 & 208 & 109 & 108 & 300       & 50.0024999375 \\
-GENERAL GUEMES & 1089      & 652          & 218 & 211 & 122 & 121 & 330       & 46.5671558075 \\
-GENERAL GUEMES & 1090      & 652          & 217 & 216 & 111 & 112 & 330       & 52.5023808984 \\
-GENERAL GUEMES & 1091      & 652          & 218 & 218 & 131 & 129 & 300       & 44.0056814514 \\
-GENERAL GUEMES & 1092      & 652          & 212 & 212 & 96  & 96  & 300       & 58            \\
-GENERAL GUEMES & 1093      & 652          & 218 & 217 & 113 & 110 & 300       & 53.0117911412\\
-\hline
-\end{tabular}
-\caption{Mesas tradicional con sigma muy alto}
-\label{table:1}
-\end{table}
+detección de este tipo de casos que pueden constituir una anomalía. 
 
 Volviendo al conjunto de datos tradicional, las mesas que cuentan con
-un sigma mayor a 20 en toda la provincia son 221 (7.28\% del total), de las
+un sigma mayor a 12 en toda la provincia son 221 (7.28\% del total), de las
 cuales un número muy alto (77) se concentran en un mismo municipio (Villa Rio
 Bermejito), donde para las categorías locales de Intendente y Concejales triunfó
 ampliamente un partido local. Este hecho cambia el peso en la distribución de
 valores, haciendo que pocos valores pero muy altos cambien la tendencia central.
+El cuadro 9 que incluimos como anexo muestra una selección de estas mesas.
 
 A efectos de nuestro análisis comparativo, descartemos esa porción de mesas y
 verifiquemos nuevamente la distribución de valores:
 
-\begin{table}[h!]
+\begin{table}[h]
 \centering
 \label{my-label}
 \begin{tabular}{c c c}
@@ -545,6 +510,8 @@ Máximo & 11.820 & 11.950 \\
   sigma < 12)}
 \label{table:1}
 \end{table}
+
+\pagebreak
 
 Y si graficamos nuevamente la distribución:
 
@@ -582,13 +549,59 @@ Sería interesante en futuras investigaciones la exploración de otras hipótesi
 aplicando esta metodología. Por ejemplo, la búsqueda de patrones históricos,
 regionales o por partido, la relación entre el tipo de elección y el corte de
 boleta, etc. Si bien aquí comparamos el sistema tradicional con la boleta
-electrónica, se podría realizar un análisis similar pero contrastando con la
+electrónica, también se podría realizar un análisis similar pero contrastando con la
 boleta única de papel.
 
+\pagebreak
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllllllll}
+Departamento  & Nro. Mesa & Nro. Partido & GOB & DIP & INT & CON & Electores & Sigma         \\
+\hline
+CHACABUCO      & 1025      & 653          & 114 & 116 & 125 & 0   & 300       & 51.4070763611 \\
+12 DE OCTUBRE  & 29        & 652          & 173 & 171 & 87  & 84  & 300       & 43.268782049  \\
+12 DE OCTUBRE  & 30        & 652          & 164 & 164 & 66  & 64  & 300       & 49.5050502474 \\
+12 DE OCTUBRE  & 32        & 652          & 172 & 173 & 87  & 84  & 300       & 43.5143654441 \\
+12 DE OCTUBRE  & 1025      & 652          & 199 & 196 & 115 & 109 & 300       & 42.8157389286 \\
+12 DE OCTUBRE  & 1026      & 652          & 190 & 190 & 104 & 102 & 300       & 43.5057467468 \\
+12 DE OCTUBRE  & 1027      & 652          & 196 & 192 & 106 & 101 & 300       & 45.3065944428 \\
+GENERAL GUEMES & 87        & 652          & 200 & 198 & 101 & 100 & 300       & 49.256344769  \\
+GENERAL GUEMES & 88        & 652          & 183 & 183 & 93  & 89  & 300       & 46.021733996  \\
+GENERAL GUEMES & 89        & 652          & 215 & 213 & 111 & 111 & 300       & 51.5048541402 \\
+GENERAL GUEMES & 90        & 652          & 197 & 197 & 93  & 94  & 300       & 51.7512077154 \\
+GENERAL GUEMES & 91        & 652          & 202 & 200 & 97  & 96  & 301       & 52.255980519  \\
+GENERAL GUEMES & 95        & 652          & 209 & 207 & 104 & 103 & 300       & 52.255980519  \\
+GENERAL GUEMES & 96        & 652          & 204 & 204 & 101 & 102 & 300       & 51.2512194977 \\
+GENERAL GUEMES & 98        & 652          & 211 & 208 & 109 & 109 & 300       & 50.2611927833 \\
+GENERAL GUEMES & 99        & 652          & 215 & 214 & 108 & 107 & 300       & 53.5023363976 \\
+GENERAL GUEMES & 100       & 652          & 217 & 217 & 118 & 118 & 300       & 49.5          \\
+GENERAL GUEMES & 101       & 652          & 209 & 209 & 116 & 116 & 300       & 46.5          \\
+GENERAL GUEMES & 102       & 652          & 216 & 216 & 137 & 135 & 300       & 40.0062495118 \\
+GENERAL GUEMES & 1009      & 652          & 186 & 185 & 102 & 102 & 300       & 41.7514969792 \\
+GENERAL GUEMES & 1009      & 653          & 68  & 68  & 152 & 152 & 300       & 42            \\
+GENERAL GUEMES & 1082      & 652          & 214 & 108 & 110 & 109 & 302       & 45.4718319402 \\
+GENERAL GUEMES & 1083      & 652          & 199 & 194 & 97  & 96  & 300       & 50.0324894444 \\
+GENERAL GUEMES & 1084      & 652          & 197 & 189 & 97  & 95  & 301       & 48.5875498456 \\
+GENERAL GUEMES & 1085      & 652          & 203 & 202 & 113 & 112 & 302       & 45.002777692  \\
+GENERAL GUEMES & 1087      & 652          & 197 & 193 & 78  & 79  & 300       & 58.2682374884 \\
+GENERAL GUEMES & 1088      & 652          & 209 & 208 & 109 & 108 & 300       & 50.0024999375 \\
+GENERAL GUEMES & 1089      & 652          & 218 & 211 & 122 & 121 & 330       & 46.5671558075 \\
+GENERAL GUEMES & 1090      & 652          & 217 & 216 & 111 & 112 & 330       & 52.5023808984 \\
+GENERAL GUEMES & 1091      & 652          & 218 & 218 & 131 & 129 & 300       & 44.0056814514 \\
+GENERAL GUEMES & 1092      & 652          & 212 & 212 & 96  & 96  & 300       & 58            \\
+GENERAL GUEMES & 1093      & 652          & 218 & 217 & 113 & 110 & 300       & 53.0117911412\\
+\hline
+\end{tabular}
+\caption{Anexo: Mesas tradicionales con sigma muy alto}
+\label{table:1}
+\end{table}
+
+\pagebreak
 \section{Bibliografía y Fuentes}
 
 \begin{itemize}
-  \item Galván, Facundo (2014). “¿Hacia dónde va el voto electrónico?”, columna publicada en el sitio web de noticias www.NoticiasElectorales.com Disponible en: http://www.noticiaselectorales.com/argentina-hacia-donde-va-el-voto-electronico
+  \item Galván, Facundo (2014). \emph{“¿Hacia dónde va el voto electrónico?”}. Disponible en: \url{http://www.noticiaselectorales.com/argentina-hacia-donde-va-el-voto-electronico}
   \item Datos de elecciones provinciales de Chaco 2015 disponibles en \url{http://elecciones2015.electoralchaco.gov.ar/}
   \item Datos de elecciones en el partido de Lanús tomadas de
     \url{http://www.elecciones.gov.ar/articulo_sub_sub.php?secc=2&sub_secc=55&sub_sub_secc=64}
